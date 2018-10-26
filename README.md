@@ -2,7 +2,7 @@
 
 *TODO*: Please edit the following information in your assignment
 
-* Name and partners name(At most teams of 3)
+* Name and partners name(At most teams of 3 folks total)
   * Team member 1:
   * Team member 2:
   * Team member 3:
@@ -21,7 +21,7 @@ An important part of any computer graphics course, in my opinion, is having the 
   
 ## Expectations
 
-You can work on any idea you want that is within the scope of graphics. You may explore areas that we did not cover heavily in class (Animation, particles, different rendering techniques, advanced shaders, etc.).  Your final project should be on the order of the difficulty beyond the homeworks (You have rest of the term to work on this project with a partner).  
+You can work on any idea you want that is within the scope of graphics. You may explore areas that we did not cover heavily in class (Animation, particles, different rendering techniques, advanced shaders, image processing, volume rendering, etc.).  Your final project should be on the order of the difficulty beyond the homeworks.  
 
 ## Project Ideas
 
@@ -65,21 +65,18 @@ I am going to list a few project ideas that I think are within the scope of this
 
 My suggested strategy for this project is to:
 
-* You will have plenty of time to think about the project you want to deliver.
+* You will have plenty of time to think about the project you want to deliver, but get started early.
 * You can get feedback from me ahead of time on nearly any graphics related topic, do so!
 * Find your teammates early if you choose to work in a team!
   * Piazza is a good resource, and the week I am gone from GDC will be the time to get started!
   
 ### How to run your program
 
-Use the `build.py` 
+Use the `build.py`. You can modify build.py to your needs, but I should be able to type `python build.py` and then run the generated executable. I plan to spend 0 time figuring out what dependencies to download. If there is some setup needed
+
+Pretend you are deploying this software to someone who has no idea what your code does and needs to be able to run it. You can assume your user has SDL2 setup however.
 
 
-*TODO*: You need to include directions on how to run your program here. 
-(Pretend you are deploying this software to someone who has no idea what your code does and needs to be able to run it. You can assume your user has SDL2 setup however)
-
-* Step 1:from a command line window in the project directory, run the build file. ("~ python macbuild.py" for mac and "~ python linuxbuld.py" for linux)
-* Step 2:from the same directory, run "./lab"
 
 ### Deliverables
 
@@ -89,17 +86,16 @@ Use the `build.py`
 ### Rubric
 
 * (33.3%) Project Complection
-  * Was the proposed project completed?
   * Does the project compile and run
   * Is it polished without any bugs (No weird visual artifacts)
 * (33.3%) Technical
-  * Was the implementaiton of the project challenging?
-    * Even if you followed some tutoral, it should not be trivial, and have some personal touches to it.
-  * Did you have to organize/process a sufficient amount of data.
+  * Was the implementation of the project challenging?
+    * Even if you followed a tutoral, it should not be trivial, and have some personal touche to it.
+  * Did you have to organize/process a sufficient amount of data?
   * Was it clear you consulted some outside resources that go above and beyond the scope of this class?
 * (33.4%) Creativity
   * How visually appealing is the scene?
-    * Note: There should be some 'wow' factor.
+    * Note: There should be some 'wow' factor--instructors discretion is used here.
   * How original is the project
     * Again, did you enhance a tutorial and do something unique or just go by the book?
     
