@@ -98,8 +98,8 @@ Here is a sample from previous years:
     - I can hear the speakers voice.
     - The talk is well outlined and concise.
     - The speaker shows off the technical parts of the code well.
-    - The speaker shows the actual visuals.
-    - It is not a very long video.
+    - The speaker shows the actual visuals and in a good resolution video.
+    - It is not a very long video with lots of silence.
 
 ### Deliverables
 
