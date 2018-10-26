@@ -2,6 +2,8 @@
 
 *TODO*: Please edit the following information in your assignment
 
+## Edit this line: Put your link to your youtube video here (see deliverables).
+
 * Name and partners name(At most teams of 3 folks total)
   * Team member 1:
   * Team member 2:
@@ -76,18 +78,41 @@ Use the `build.py`. You can modify build.py to your needs, but I should be able 
 
 Pretend you are deploying this software to someone who has no idea what your code does and needs to be able to run it. You can assume your user has SDL2 setup however.
 
+### Video deliverable
 
+For this project, you need to make a video recording of your project. Here are the specifications:
+
+- Give an ~2-3 minute overview of your implementation as a youtube video.
+- Explain what your project is (i.e. You should be talking in your video as you show things)
+- Show what was achieved (e.g. moving a camera around and talking over) 
+- In the video highlight one particular technical achievement
+  - e.g. Part of the code or algorithm that does something neat or was difficult to get right.
+    - Give a quick 'tutorial' like summary of how you solved the problem.
+    
+Videos will publicly be uploaded to the course websites 'hall of fame'.
+
+Here is a sample from previous years:
+
+- https://youtu.be/cGB8C6IT8eE
+  - I like this sample because:
+    - I can hear the speakers voice.
+    - The talk is well outlined and concise.
+    - The speaker shows off the technical parts of the code well.
+    - The speaker shows the actual visuals.
+    - It is not a very long video.
 
 ### Deliverables
 
 * You need to commit your code to this repository.
-* You need to have a makefile, compile script, visual studio project, or Xcode project and directions on how to run your program. If your program does not compile and run, you get a zero!
+* Your program needs to compile using a build.py script
+* Put a link to a youtube/vimeo video in this README.md.
 
 ### Rubric
 
 * (33.3%) Project Complection
   * Does the project compile and run
   * Is it polished without any bugs (No weird visual artifacts)
+  * Did you make a video?
 * (33.3%) Technical
   * Was the implementation of the project challenging?
     * Even if you followed a tutoral, it should not be trivial, and have some personal touche to it.
