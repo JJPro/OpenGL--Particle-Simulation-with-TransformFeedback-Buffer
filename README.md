@@ -11,7 +11,7 @@
 * How many hours did it take you to complete this final project? 
 * Did you collaborate or share ideas with any other students/TAs/Professors?
 * Did you use any external resources? 
-  * Note it is fair to find some tutorials--but you must cite them!
+  * Note it is fair to utilize some tutorials--cite them here, and make sure to add your own personal touch!
   * 
   *
   *
