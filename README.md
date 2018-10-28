@@ -5,16 +5,16 @@
 ## Edit this line: Put your link to your youtube video here (see deliverables).
 
 * Name and partners name(At most teams of 3 folks total)
-  * Team member 1:
-  * Team member 2:
-  * Team member 3:
+  * Team member 1: *edit this*
+  * Team member 2: *edit this*
+  * Team member 3: *edit this*
 * How many hours did it take you to complete this final project? 
 * Did you collaborate or share ideas with any other students/TAs/Professors?
 * Did you use any external resources? 
   * Note it is fair to utilize some tutorials--cite them here, and make sure to add your own personal touch!
-  * 
-  *
-  *
+  * *edit this*
+  * *edit this*
+  * *edit this*
   * (Optional) What was the most interesting part of the Final Assignment? How could the instructor improve the final project?
  
 ## Description
@@ -23,8 +23,7 @@ An important part of any computer graphics course, in my opinion, is having the 
   
 ## Expectations
 
-You can work on any idea you want that is within the scope of graphics. You may explore areas that we did not cover heavily in class (Animation, particles, different rendering techniques, advanced shaders, image processing, volume rendering, etc.).  Your final project should be on the order of the difficulty beyond the homeworks.  
-
+You can work on any idea you want that is within the scope of graphics (OpenGL, WebGL, Vulkan, DirectX, etc.). You may explore areas that we did not cover heavily in class (Animation, particles, different rendering techniques, advanced shaders, image processing, volume rendering, etc.).  Your final project should be on the order of the difficulty beyond the homeworks.  
 ## Project Ideas
 
 I am going to list a few project ideas that I think are within the scope of this class.
@@ -68,26 +67,28 @@ I am going to list a few project ideas that I think are within the scope of this
 My suggested strategy for this project is to:
 
 * You will have plenty of time to think about the project you want to deliver, but get started early.
+* I recommend finding at least one web tutorial, youtube talk, etc. that can serve as a reference for you to fall back on.
 * You can get feedback from me ahead of time on nearly any graphics related topic, do so!
-* Find your teammates early if you choose to work in a team!
-  * Piazza is a good resource, and the week I am gone from GDC will be the time to get started!
+* Find your teammates(teams of up to 3) early if you choose to work in a team!
+  * Piazza is a good resource, and I will tentatively match folks on a spreadsheet.
   
-### How to run your program
+### How to run your final project
 
-Use the `build.py`. You can modify build.py to your needs, but I should be able to type `python build.py` and then run the generated executable. I plan to spend 0 time figuring out what dependencies to download. If there is some setup needed
+Use the `build.py`. You can modify build.py to your needs, but I should be able to type `python build.py` and then run the generated executable. I plan to spend 0 time figuring out what dependencies to download. If there is some setup extraneous setup needed to run your project, we should arrange to demonstrate your project during office hours.
 
-Pretend you are deploying this software to someone who has no idea what your code does and needs to be able to run it. You can assume your user has SDL2 setup however.
+Pretend you are deploying this software to someone who has no idea what your code does and needs to be able to run it. The only assumption you should make is the user has SDL2 setup and perhaps a web browser.
 
 ### Video deliverable
 
 For this project, you need to make a video recording of your project. Here are the specifications:
 
-- Give an ~2-3 minute overview of your implementation as a youtube video.
+- Give an 2-3 minute overview of your implementation as a youtube video.
 - Explain what your project is (i.e. You should be talking in your video as you show things)
 - Show what was achieved (e.g. moving a camera around and talking over) 
-- In the video highlight one particular technical achievement
+- In the video highlight **one** particular technical achievement.
   - e.g. Part of the code or algorithm that does something neat or was difficult to get right.
     - Give a quick 'tutorial' like summary of how you solved the problem.
+    - You can talk about other important features in your project, but dedicate some time on one specific item.
     
 Videos will publicly be uploaded to the course websites 'hall of fame'.
 
@@ -100,11 +101,12 @@ Here is a sample from previous years:
     - The speaker shows off the technical parts of the code well.
     - The speaker shows the actual visuals and in a good resolution video.
     - It is not a very long video with lots of silence.
+    - If I were to see this on a resume, I would have a very good idea of what the developer knows.
 
 ### Deliverables
 
 * You need to commit your code to this repository.
-* Your program needs to compile using a build.py script
+* Your program needs to compile using a build.py script.
 * Put a link to a youtube/vimeo video in this README.md.
 
 ### Rubric
@@ -130,4 +132,7 @@ Here is a sample from previous years:
 
 ## Other FAQ
 
-* N/A
+- Q: May I upload my final project to a public repository after the semester is over?
+- A: Yes under the following conditions
+  - You acknowledge your team members and any third parties fairly for their contributions.
+  - You remove the README.md provided with the assignment (delete it entirely from your github history), as you'll want your own readme anyway.
