@@ -12,7 +12,7 @@ TODO:
 - [x] update 
 
 DEBUG 
-- [] testing particles data are auto-updated for each frame on CPU side 
+- [x] testing particles data are auto-updated for each frame on CPU side 
 - [] test data is actually passed to GPU
 - [] test gl draw procedure is correct. 
 

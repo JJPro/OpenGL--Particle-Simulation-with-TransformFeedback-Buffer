@@ -1,6 +1,8 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
+#include <string>
+#include <sstream>
 #include <glm/glm.hpp>
 #include "constants.h"
 #include "Mouse.h"
@@ -23,7 +25,7 @@ struct Particle
     }
 
     void update(Mouse &); 
-    
+    string toString(); 
   private:
     
 };

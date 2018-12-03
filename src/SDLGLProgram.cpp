@@ -55,14 +55,15 @@ void SDLGLProgram::initBufferData()
 // update state for every render
 void SDLGLProgram::update()
 {
-    for (auto particle: particles) {
-        particle.update(*mouse);
+    for (auto p = particles.begin(); p != particles.end(); p++) {
+        p->update(*mouse);
     }
 }
 
 // sets what to render
 void SDLGLProgram::render()
 {
+    printParticles(); 
     _bufferParticles(); 
     /***** cleaning work *****/
     glViewport(0, 0, screenWidth, screenHeight);
@@ -85,7 +86,6 @@ void SDLGLProgram::loop()
         eventHandler(e);
 
         update();
-        cout << "rendering " << particles.size() << " particles" << endl;
         render();
 
         SDL_GL_SwapWindow(window);
@@ -333,4 +333,15 @@ void SDLGLProgram::fixMojaveBlackScreen()
     SDL_GetWindowPosition(window, &x, &y);
     SDL_SetWindowPosition(window, x, y);
     fixed = true;
+}
+
+void SDLGLProgram::printParticles()
+{
+    cout << ">>>>>>>>> " << endl;
+    cout << "   test particles: " << endl;
+    cout << "     " << particles[1].toString() << endl; 
+    // for (int i=0; i<5; i++){
+    //     cout << "     " << particles[i].toString() << endl; 
+    // }
+    cout << "<<<<<<<< " << endl;
 }

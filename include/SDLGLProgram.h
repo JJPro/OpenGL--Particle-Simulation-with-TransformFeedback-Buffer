@@ -48,6 +48,8 @@ private:
   void _genBuffers(); 
   void _delBuffers(); 
 
+  void printParticles(); // print the first 10 particles for testing purposes
+
   void eventHandler(SDL_Event e);
   /**
    * create GL context 
