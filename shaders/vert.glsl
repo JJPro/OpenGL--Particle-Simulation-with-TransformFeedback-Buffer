@@ -12,6 +12,7 @@ out VS_OUT
 void main()
 {
 	gl_Position = vec4(pos, 0, 0); 
+	gl_PointSize = 10.0; 
 
 	vs_out.acceleration = acceleration; 
 }

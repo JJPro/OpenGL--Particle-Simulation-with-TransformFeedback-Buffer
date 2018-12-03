@@ -8,8 +8,13 @@ TODO:
     - [x] getMousePos()
 - [x] setup shaders
 - [x] particle auto-update with mouse info
-- render
-- update 
+- [x] render
+- [x] update 
+
+DEBUG 
+- [] testing particles data are auto-updated for each frame on CPU side 
+- [] test data is actually passed to GPU
+- [] test gl draw procedure is correct. 
 
 
 

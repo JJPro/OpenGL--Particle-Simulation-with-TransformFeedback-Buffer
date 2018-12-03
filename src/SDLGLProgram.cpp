@@ -21,6 +21,10 @@ SDLGLProgram::SDLGLProgram(int w, int h) : screenWidth(w), screenHeight(h)
         // set up shader file 
         shader = new Shader("shaders/vert.glsl", "shaders/frag.glsl");
 
+        shader->use();
+        glEnable(GL_POINT_SMOOTH);
+        glEnable(GL_PROGRAM_POINT_SIZE);
+
         // buffer initial data to GPU
         initBufferData(); 
     }
@@ -46,56 +50,7 @@ void SDLGLProgram::initBufferData()
     _bufferParticles(); 
 }
 
-void SDLGLProgram::_bufferParticles()
-{
-    glBindBuffer(GL_ARRAY_BUFFER, VBO); 
-    glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(Particle), particles.data(), GL_DYNAMIC_DRAW);
 
-    /**
-     * Configure Buffer Layout
-     * 
-     * Note: 
-     * Make sure that layout is only set once, 
-     * because buffer layout stays the same for all subsequent usage. 
-     * This way, we could save significant amount of GL calls. 
-     */
-    static bool layout_set = false; 
-    if (layout_set) return; 
-    glBindVertexArray(VAO); 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO); 
-    // vec2 acceleration
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), 0); 
-    glEnableVertexAttribArray(0); 
-    // vec2 speed
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)(2*sizeof(float))); 
-    glEnableVertexAttribArray(1); 
-    // vec2 pos
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void *)(4 * sizeof(float)));
-    glEnableVertexAttribArray(2); 
-    glBindVertexArray(0); 
-
-    layout_set = true; 
-}
-
-void SDLGLProgram::_genBuffers()
-{
-    /**
-     * Generate VAO and VBO buffers
-     * 
-     * Also make sure the buffers are only created once. 
-     */
-    static bool generated = false; 
-    if (generated) return; 
-    glGenVertexArrays(1, &VAO); 
-    glGenBuffers(1, &VBO);
-
-    generated = true; 
-}
-void SDLGLProgram::_delBuffers()
-{
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-}
 
 // update state for every render
 void SDLGLProgram::update()
@@ -111,7 +66,7 @@ void SDLGLProgram::render()
     _bufferParticles(); 
     /***** cleaning work *****/
     glViewport(0, 0, screenWidth, screenHeight);
-    glClearColor(.5, .5, .5, 1);  
+    glClearColor(.5, .1, .5, 1);  
     glClear(GL_COLOR_BUFFER_BIT); 
 
     /****** draw objects ******/
@@ -305,6 +260,58 @@ bool SDLGLProgram::initSDL()
     {
         return true;
     }
+}
+
+void SDLGLProgram::_bufferParticles()
+{
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(Particle), particles.data(), GL_DYNAMIC_DRAW);
+    /**
+     * Configure Buffer Layout
+     * 
+     * Note: 
+     * Make sure that layout is only set once, 
+     * because buffer layout stays the same for all subsequent usage. 
+     * This way, we could save significant amount of GL calls. 
+     */
+    static bool layout_set = false;
+    if (layout_set)
+        return;
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // vec2 acceleration
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), 0);
+    glEnableVertexAttribArray(0);
+    // vec2 speed
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void *)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    // vec2 pos
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void *)(4 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
+    layout_set = true;
+}
+
+void SDLGLProgram::_genBuffers()
+{
+    /**
+     * Generate VAO and VBO buffers
+     * 
+     * Also make sure the buffers are only created once. 
+     */
+    static bool generated = false;
+    if (generated)
+        return;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+
+    generated = true;
+}
+void SDLGLProgram::_delBuffers()
+{
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
 }
 
 // Helper Function to get OpenGL Version Information
