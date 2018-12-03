@@ -1,5 +1,18 @@
 # Final Project - Computer Graphics
 
+TODO: 
+- [x] init buffers and local cache
+- [x] Program::eventhandler -> detect mouse drag
+- [x] Mouse.cpp 
+    - [x] handleMouseDown()
+    - [x] getMousePos()
+- [x] setup shaders
+- [x] particle auto-update with mouse info
+- render
+- update 
+
+
+
 *TODO*: Please edit the following information in your assignment
 
 ## Edit this line: Put your link to your youtube video here (see deliverables).

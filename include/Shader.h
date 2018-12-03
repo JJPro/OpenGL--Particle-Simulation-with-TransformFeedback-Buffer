@@ -11,10 +11,13 @@
 
 class Shader
 {
-public:
   // the program ID
   unsigned int ID;
+ 
+  Shader(); // hide default initializer to force user to use designated initializer above
+  unsigned int compileShader(unsigned int type, const char *code);
 
+public: 
   // constructor reads and builds the shader
   Shader(std::string vertexShaderPath, std::string fragmentShaderPath);
   ~Shader();
@@ -28,8 +31,6 @@ public:
   void setUniform(const GLchar *name, float);
   void setUniform(const GLchar *name, const glm::vec3 &);
 
-private:
-  unsigned int compileShader(unsigned int type, const char *code);
 };
 
 #endif

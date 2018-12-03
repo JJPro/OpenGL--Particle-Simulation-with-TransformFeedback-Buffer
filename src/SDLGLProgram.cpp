@@ -1,5 +1,4 @@
 #include "SDLGLProgram.h"
-#define REFRESH_DELAY 20
 
 SDLGLProgram::SDLGLProgram(int w, int h) : screenWidth(w), screenHeight(h)
 {
@@ -17,24 +16,108 @@ SDLGLProgram::SDLGLProgram(int w, int h) : screenWidth(w), screenHeight(h)
         getOpenGLVersionInfo();
 
         // glEnable(GL_DEPTH_TEST);
+        mouse = new Mouse(vec2(BOX_EDGE_LEN)); 
+
+        // set up shader file 
+        shader = new Shader("shaders/vert.glsl", "shaders/frag.glsl");
+
+        // buffer initial data to GPU
+        initBufferData(); 
     }
+}
+
+/**
+ * Sets up the initial states of the particles and buffer them to GPU 
+ */
+void SDLGLProgram::initBufferData()
+{
+    int particles_per_row = sqrt(PARTICLE_COUNT);
+    float gap = BOX_EDGE_LEN / particles_per_row; // gap distance between particles
+
+    vec2 pos; 
+    for(int i=0; i < particles_per_row; i++){ // row
+        for(int j=0; j<particles_per_row; j++){ // column
+            pos.x = j * gap - BOX_EDGE_LEN/2; pos.y = i * gap - BOX_EDGE_LEN/2; 
+            particles.push_back(Particle(pos)); 
+        }
+    }
+
+    _genBuffers(); 
+    _bufferParticles(); 
+}
+
+void SDLGLProgram::_bufferParticles()
+{
+    glBindBuffer(GL_ARRAY_BUFFER, VBO); 
+    glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(Particle), particles.data(), GL_DYNAMIC_DRAW);
+
+    /**
+     * Configure Buffer Layout
+     * 
+     * Note: 
+     * Make sure that layout is only set once, 
+     * because buffer layout stays the same for all subsequent usage. 
+     * This way, we could save significant amount of GL calls. 
+     */
+    static bool layout_set = false; 
+    if (layout_set) return; 
+    glBindVertexArray(VAO); 
+    glBindBuffer(GL_ARRAY_BUFFER, VBO); 
+    // vec2 acceleration
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), 0); 
+    glEnableVertexAttribArray(0); 
+    // vec2 speed
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)(2*sizeof(float))); 
+    glEnableVertexAttribArray(1); 
+    // vec2 pos
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void *)(4 * sizeof(float)));
+    glEnableVertexAttribArray(2); 
+    glBindVertexArray(0); 
+
+    layout_set = true; 
+}
+
+void SDLGLProgram::_genBuffers()
+{
+    /**
+     * Generate VAO and VBO buffers
+     * 
+     * Also make sure the buffers are only created once. 
+     */
+    static bool generated = false; 
+    if (generated) return; 
+    glGenVertexArrays(1, &VAO); 
+    glGenBuffers(1, &VBO);
+
+    generated = true; 
+}
+void SDLGLProgram::_delBuffers()
+{
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
 }
 
 // update state for every render
 void SDLGLProgram::update()
 {
+    for (auto particle: particles) {
+        particle.update(*mouse);
+    }
 }
 
 // sets what to render
 void SDLGLProgram::render()
 {
+    _bufferParticles(); 
     /***** cleaning work *****/
     glViewport(0, 0, screenWidth, screenHeight);
     glClearColor(.5, .5, .5, 1);  
     glClear(GL_COLOR_BUFFER_BIT); 
 
     /****** draw objects ******/
-    // TODO 
+    shader->use(); 
+    glBindVertexArray(VAO); 
+    glDrawArrays(GL_POINTS, 0, particles.size()); 
 }
 
 void SDLGLProgram::loop()
@@ -47,6 +130,7 @@ void SDLGLProgram::loop()
         eventHandler(e);
 
         update();
+        cout << "rendering " << particles.size() << " particles" << endl;
         render();
 
         SDL_GL_SwapWindow(window);
@@ -58,6 +142,12 @@ void SDLGLProgram::loop()
 
 SDLGLProgram::~SDLGLProgram()
 {
+    _delBuffers();
+    delete mouse; 
+    mouse = NULL; 
+
+    delete shader; 
+    shader = NULL; 
     SDL_DestroyWindow(window);
     window = NULL;
     SDL_Quit();
@@ -89,17 +179,51 @@ void SDLGLProgram::eventHandler(SDL_Event e)
             SDL_Quit();
             exit(0);
             break;
-        case SDL_MOUSEMOTION:
-            // handle mouse motion here
+        case SDL_MOUSEBUTTONDOWN:
+            if (e.button.button == SDL_BUTTON_LEFT)
+                mouse->handleMouseDown(e.button.x, e.button.y, camera.getWorldToViewMatrix()); 
             break;
+        case SDL_MOUSEBUTTONUP:
+            if (e.button.button == SDL_BUTTON_LEFT)
+                mouse->handleMouseRelease(); 
+            break;
+        case SDL_MOUSEWHEEL:
+            if (e.wheel.y > 0)
+                camera.zoomOut(CAM_SPEED);
+            else
+                camera.zoomIn(CAM_SPEED);
+            break;
+        case SDL_MOUSEMOTION: // handle mouse drag
+            if (mouse->isMouseDown())
+                mouse->handleMouseDrag(e.button.x, e.button.y, camera.getWorldToViewMatrix());
+            break; 
         case SDL_KEYDOWN:
             // handle keyboard events here
             switch (e.key.keysym.sym)
             {
-            case SDLK_q:
-                SDL_Quit();
-                exit(0);
-                break;
+                case SDLK_q:
+                    SDL_Quit();
+                    exit(0);
+                    break;
+                case SDLK_LEFT:
+                    camera.moveLeft(CAM_SPEED);
+                    break;
+                case SDLK_RIGHT:
+                    camera.moveRight(CAM_SPEED);
+                    break;
+                case SDLK_UP:
+                    camera.moveUp(CAM_SPEED);
+                    break;
+                case SDLK_DOWN:
+                    camera.moveDown(CAM_SPEED);
+                    break;
+                case SDLK_LSHIFT:
+                    camera.zoomIn(CAM_SPEED);
+                    break;
+                case SDLK_LCTRL:
+                    camera.zoomOut(CAM_SPEED);
+                    break;
+                
             }
             break;
 
