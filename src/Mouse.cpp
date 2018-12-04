@@ -35,7 +35,7 @@ void Mouse::handleMouseDown(unsigned int _x, unsigned int _y, mat3 camMatrix)
 
 
     // cout << "tmp: " << tmp << endl; 
-    cout << "mouse pos normalized: " << to_string(clickPosNormalized) << endl; 
+    // cout << "mouse pos normalized: " << to_string(clickPosNormalized) << endl; 
     // cout << "bounds: " << to_string(boxBounds) << endl; 
 
     if (clickedInBox)
