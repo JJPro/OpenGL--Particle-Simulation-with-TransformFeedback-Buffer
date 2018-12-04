@@ -21,17 +21,17 @@ void Camera::zoomOut(float speed)
 }
 void Camera::moveLeft(float speed)
 {
-    pos.x -= speed; 
+    pos.x -= speed*0.03f; 
 }
 void Camera::moveRight(float speed)
 {
-    pos.x += speed;
+    pos.x += speed*0.03f;
 }
 void Camera::moveUp(float speed)
 {
-    pos.y += speed;
+    pos.y += speed*0.03f;
 }
 void Camera::moveDown(float speed)
 {
-    pos.y -= speed;
+    pos.y -= speed*0.03f;
 }
