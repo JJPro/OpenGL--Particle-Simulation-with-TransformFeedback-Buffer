@@ -18,27 +18,24 @@ DEBUG
 - [x] test gl draw procedure is correct. 
 - [x] fix click is off when cam is not centered
 - [x] color 
-- [] slow down resistance
-- [] why it went crazy on long click? 
+- [x] slow down resistance
+- [x] why it went crazy on long click? 
 
-
-
-*TODO*: Please edit the following information in your assignment
 
 ## Edit this line: Put your link to your youtube video here (see deliverables).
 
 * Name and partners name(At most teams of 3 folks total)
-  * Team member 1: *edit this*
-  * Team member 2: *edit this*
-  * Team member 3: *edit this*
+  * Team member 1: *Lu Ji*
+  * Team member 2: *Tianwei Li*
+  * Team member 3: *Rui Zheng*
 * How many hours did it take you to complete this final project? 
+    * 20
 * Did you collaborate or share ideas with any other students/TAs/Professors?
+    * No 
 * Did you use any external resources? 
   * Note it is fair to utilize some tutorials--cite them here, and make sure to add your own personal touch!
-  * *edit this*
-  * *edit this*
-  * *edit this*
-  * (Optional) What was the most interesting part of the Final Assignment? How could the instructor improve the final project?
+  * https://www.youtube.com/watch?v=RMfsdUKEmDo
+* (Optional) What was the most interesting part of the Final Assignment? How could the instructor improve the final project?
  
 ## Description
 

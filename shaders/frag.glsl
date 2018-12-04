@@ -2,7 +2,7 @@
 
 out vec4 fragColor;
 
-uniform float PARTICLE_ACCELERATION_MAX; 
+uniform float PARTICLE_SPEED_MAX; 
 
 in VS_OUT
 {
@@ -20,9 +20,9 @@ void main()
 	 */
 	
 	// calculate magnitude/modulus of acceleration vector
-	float modulus = length(fs_in.acceleration); 
+	float modulus = length(fs_in.speed); 
 	const float MAX_GREEN = 0.9f; 
 	const float MIN_GREEN = 0.3f; 
-	float g = (1 - modulus / PARTICLE_ACCELERATION_MAX) * (MAX_GREEN - MIN_GREEN) + MIN_GREEN; 
+	float g = (1 - modulus / PARTICLE_SPEED_MAX) * (MAX_GREEN - MIN_GREEN) + MIN_GREEN; 
 	fragColor = vec4(0.906, g, 0.2, 1);
 }

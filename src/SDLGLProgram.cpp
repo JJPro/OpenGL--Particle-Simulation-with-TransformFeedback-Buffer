@@ -24,7 +24,7 @@ SDLGLProgram::SDLGLProgram(int w, int h) : screenWidth(w), screenHeight(h)
         shader->use();
         glEnable(GL_POINT_SMOOTH);
         glEnable(GL_PROGRAM_POINT_SIZE);
-        shader->setUniform("PARTICLE_ACCELERATION_MAX", PARTICLE_ACCELERATION_MAX); 
+        shader->setUniform("PARTICLE_SPEED_MAX", PARTICLE_SPEED_MAX);
 
         // buffer initial data to GPU
         initBufferData();

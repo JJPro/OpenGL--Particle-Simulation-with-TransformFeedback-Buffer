@@ -3,7 +3,7 @@
 int main(int argc, char const *argv[])
 {
 
-    SDLGLProgram program(800, 600);
+    SDLGLProgram program(800, 800);
     program.loop();
 
     // */

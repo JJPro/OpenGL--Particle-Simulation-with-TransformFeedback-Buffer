@@ -35,7 +35,8 @@ void Particle::update(Mouse &mouse, mat3 camMatrix)
         }
     }
     // limit speed to maximum of 0.3
-    if (length(speed) > 0.3) speed = normalize(speed) * vec2(0.3); 
+    if (length(speed) > PARTICLE_SPEED_MAX)
+        speed = normalize(speed) * vec2(PARTICLE_SPEED_MAX);
 
     /**
      * Bounds Check 
