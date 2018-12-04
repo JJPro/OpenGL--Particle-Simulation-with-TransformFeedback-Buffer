@@ -3,7 +3,7 @@
 Camera::~Camera()
 {}
 
-mat3 Camera::getWorldToViewMatrix() const
+mat3 Camera::getViewMatrix() const
 {
     mat3 trans; 
     trans = translate(trans, pos); 

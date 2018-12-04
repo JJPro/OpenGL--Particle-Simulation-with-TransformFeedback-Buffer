@@ -2,14 +2,14 @@
 
 Mouse::Mouse(vec2 _bounds) : bounds(_bounds) {}
 
-vec2 Mouse::getMousePosNormalized() const
-/**
- * TODO: convert mouse pos from window space to particle's coordinate system
- * 1. convert to model space
- * 2. convert to view matrix with camMatrix
- */
+vec2 Mouse::getMousePosInViewCoord() const
 {
     return windowCoord2NormalizedCoord(x, y); 
+}
+vec2 Mouse::getMousePosInLocalCoord(mat3 viewMatrix) const
+{
+    vec2 posInView = getMousePosInViewCoord(); 
+    return vec2( inverse(viewMatrix) * vec3(posInView, 1) ); 
 }
 bool Mouse::isMouseDown()
 {
@@ -26,8 +26,8 @@ void Mouse::handleMouseDown(unsigned int _x, unsigned int _y, mat3 camMatrix)
     //    set down = false if click is out of boundary and return early
     vec2 clickPosNormalized = windowCoord2NormalizedCoord(_x, _y);
     float tmp = ((float)BOX_EDGE_LEN)/2; 
-    vec4 boxBounds = vec4( vec2(camMatrix * vec3( vec2(-tmp, tmp), 0)),  // up-left corner
-                           vec2(camMatrix * vec3( vec2(tmp, -tmp), 0))); // bottom-right corner
+    vec4 boxBounds = vec4( vec2(camMatrix * vec3( vec2(-tmp, tmp), 1)),  // up-left corner
+                           vec2(camMatrix * vec3( vec2(tmp, -tmp), 1))); // bottom-right corner
     bool clickedInBox = (clickPosNormalized.x >= boxBounds.x)
                      && (clickPosNormalized.y <= boxBounds.y)
                      && (clickPosNormalized.x <= boxBounds.z)
@@ -53,9 +53,9 @@ void Mouse::handleMouseDrag(unsigned int _x, unsigned int _y, mat3 camMatrix)
 }
 
 
-/*************************/
-/******** Private ********/
-/*************************/
+                        /*************************/
+                        /******** Private ********/
+                        /*************************/
 
 vec2 Mouse::windowCoord2NormalizedCoord(unsigned int _x, unsigned int _y) const
 {

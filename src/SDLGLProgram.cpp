@@ -24,9 +24,10 @@ SDLGLProgram::SDLGLProgram(int w, int h) : screenWidth(w), screenHeight(h)
         shader->use();
         glEnable(GL_POINT_SMOOTH);
         glEnable(GL_PROGRAM_POINT_SIZE);
+        shader->setUniform("PARTICLE_ACCELERATION_MAX", PARTICLE_ACCELERATION_MAX); 
 
         // buffer initial data to GPU
-        initBufferData(); 
+        initBufferData();
     }
 }
 
@@ -56,11 +57,11 @@ void SDLGLProgram::initBufferData()
 void SDLGLProgram::update()
 {
     for (auto p = particles.begin(); p != particles.end(); p++) {
-        p->update(*mouse);
+        p->update(*mouse, camera.getViewMatrix());
     }
 
     shader->use(); 
-    shader->setUniform("camMatrix", camera.getWorldToViewMatrix()); 
+    shader->setUniform("camMatrix", camera.getViewMatrix()); 
 }
 
 // sets what to render
@@ -139,7 +140,7 @@ void SDLGLProgram::eventHandler(SDL_Event e)
             break;
         case SDL_MOUSEBUTTONDOWN:
             if (e.button.button == SDL_BUTTON_LEFT)
-                mouse->handleMouseDown(e.button.x, e.button.y, camera.getWorldToViewMatrix()); 
+                mouse->handleMouseDown(e.button.x, e.button.y, camera.getViewMatrix()); 
             break;
         case SDL_MOUSEBUTTONUP:
             if (e.button.button == SDL_BUTTON_LEFT)
@@ -153,7 +154,7 @@ void SDLGLProgram::eventHandler(SDL_Event e)
             break;
         case SDL_MOUSEMOTION: // handle mouse drag
             if (mouse->isMouseDown())
-                mouse->handleMouseDrag(e.button.x, e.button.y, camera.getWorldToViewMatrix());
+                mouse->handleMouseDrag(e.button.x, e.button.y, camera.getViewMatrix());
             break; 
         case SDL_KEYDOWN:
             // handle keyboard events here

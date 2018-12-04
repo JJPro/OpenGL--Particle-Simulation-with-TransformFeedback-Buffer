@@ -34,11 +34,17 @@ class Mouse
 
     // getters
     /**
-     * Gets mouse position in particle's cooridinate system. 
+     * Gets mouse position in OpenGL's cooridinate system. 
      * 
      * Returns vec2(float, float)
      */
-    vec2 getMousePosNormalized() const;
+    vec2 getMousePosInViewCoord() const;
+    /**
+     * Gets mouse position in Particle's local cooridinate system. 
+     * 
+     * Returns vec2(float, float)
+     */
+    vec2 getMousePosInLocalCoord(mat3 viewMatrix) const;
     bool isMouseDown();
 
     // setters

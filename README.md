@@ -16,9 +16,10 @@ DEBUG
 - [x] pass camera matrix as uniform 
 - [x] test data is actually passed to GPU
 - [x] test gl draw procedure is correct. 
-- [] color 
+- [x] fix click is off when cam is not centered
+- [x] color 
 - [] slow down resistance
-- [] why it went crazy on drag? 
+- [] why it went crazy on long click? 
 
 
 

@@ -24,7 +24,7 @@ struct Particle
         speed = vec2(0); 
     }
 
-    void update(Mouse &); 
+    void update(Mouse &, mat3); 
     string toString(); 
   private:
     

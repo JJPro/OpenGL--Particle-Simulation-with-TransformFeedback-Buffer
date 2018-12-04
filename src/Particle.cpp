@@ -1,11 +1,11 @@
 #include "Particle.h"
 
-void Particle::update(Mouse &mouse)
+void Particle::update(Mouse &mouse, mat3 camMatrix)
 {
     // acceleration 
     if (mouse.isMouseDown()){
         // cout << "mouse down detected, changing acceleration" << endl;
-        vec2 mousePos = mouse.getMousePosNormalized(); 
+        vec2 mousePos = mouse.getMousePosInLocalCoord(camMatrix);
         vec2 direction_vec = mousePos - pos;
         float dist = length(direction_vec);
 

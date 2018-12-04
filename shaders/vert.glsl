@@ -9,6 +9,7 @@ uniform mat3 camMatrix;
 out VS_OUT
 {
 	vec2 acceleration; 
+	vec2 speed; 
 } vs_out; 
 
 void main()
@@ -17,4 +18,5 @@ void main()
 	gl_PointSize = 1.5; 
 
 	vs_out.acceleration = acceleration; 
+	vs_out.speed = speed; 
 }

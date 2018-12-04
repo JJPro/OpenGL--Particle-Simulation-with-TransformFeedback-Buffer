@@ -18,7 +18,7 @@ public:
     Camera() : pos(vec2(0)), zoom(1) {}
     ~Camera(); 
 
-    mat3 getWorldToViewMatrix() const; 
+    mat3 getViewMatrix() const; 
 
     void zoomIn(float speed);
     void zoomOut(float speed);
