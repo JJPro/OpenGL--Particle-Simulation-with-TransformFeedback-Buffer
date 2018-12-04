@@ -66,7 +66,7 @@ void SDLGLProgram::update()
 // sets what to render
 void SDLGLProgram::render()
 {
-    printParticles(); 
+    // printParticles(); 
     _bufferParticles(); 
     /***** cleaning work *****/
     glViewport(0, 0, screenWidth, screenHeight);

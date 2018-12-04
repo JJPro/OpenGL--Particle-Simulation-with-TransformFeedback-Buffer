@@ -11,6 +11,7 @@ void Particle::update(Mouse &mouse)
 
         // magnitude of acceleration
         float modulus = GRAVITATIONAL_CONSTANT / (dist * dist); // magnitude of new acceleration
+        if (modulus > PARTICLE_ACCELERATION_MAX) modulus = PARTICLE_ACCELERATION_MAX; // constraint acceleration
         acceleration = normalize(direction_vec) * modulus; 
         // cout << "dist = " << dist << endl;
         // cout << "acceleration modulus = " << modulus << endl;
@@ -49,7 +50,7 @@ void Particle::update(Mouse &mouse)
     float tmp = ((float)BOX_EDGE_LEN) / 2;
     vec4 boxBounds = vec4(vec2(-tmp, tmp),  // up-left corner
                           vec2(tmp, -tmp)); // bottom-right corner
-    cout << "bounds check: " << to_string(boxBounds) << endl;
+    // cout << "bounds check: " << to_string(boxBounds) << endl;
 
     vec2 potentialPos = pos + speed; 
     bool hitBounds = false; 
@@ -70,6 +71,7 @@ void Particle::update(Mouse &mouse)
 
     if (!mouse.isMouseDown() && length(speed))
         acceleration = normalize(-speed) * PARTICLE_MOVING_RESISTENCE;
+
 }
 
 string Particle::toString()
