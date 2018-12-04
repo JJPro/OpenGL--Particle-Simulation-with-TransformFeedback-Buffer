@@ -58,6 +58,9 @@ void SDLGLProgram::update()
     for (auto p = particles.begin(); p != particles.end(); p++) {
         p->update(*mouse);
     }
+
+    shader->use(); 
+    shader->setUniform("camMatrix", camera.getWorldToViewMatrix()); 
 }
 
 // sets what to render

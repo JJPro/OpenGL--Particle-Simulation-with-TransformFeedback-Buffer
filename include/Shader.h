@@ -24,6 +24,7 @@ public:
   // use/activate the shader
   void use();
   // set uniforms for our shader.
+  void setUniform(const GLchar *name, const glm::mat3 &);
   void setUniform(const GLchar *name, const glm::mat4 &);
   void setUniform(const GLchar *name, const GLfloat *);
   void setUniform(const GLchar *name, float, float, float);

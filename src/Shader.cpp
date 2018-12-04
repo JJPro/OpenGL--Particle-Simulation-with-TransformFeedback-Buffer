@@ -111,6 +111,10 @@ unsigned int Shader::compileShader(unsigned int type, const char *code)
   return id;
 }
 
+void Shader::setUniform(const GLchar *name, const glm::mat3 &mat)
+{
+  glUniformMatrix3fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &mat[0][0]);
+}
 void Shader::setUniform(const GLchar *name, const glm::mat4 &mat)
 {
   glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &mat[0][0]);

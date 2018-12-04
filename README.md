@@ -13,6 +13,7 @@ TODO:
 
 DEBUG 
 - [x] testing particles data are auto-updated for each frame on CPU side 
+- [] pass camera matrix as uniform 
 - [] test data is actually passed to GPU
 - [] test gl draw procedure is correct. 
 
