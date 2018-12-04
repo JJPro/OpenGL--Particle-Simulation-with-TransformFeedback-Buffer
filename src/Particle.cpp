@@ -33,9 +33,43 @@ void Particle::update(Mouse &mouse)
             speed += acceleration; 
         }
     }
+    // limit speed to maximum of 0.3
+    if (length(speed) > 0.3) speed = normalize(speed) * vec2(0.3); 
 
-    // pos 
-    pos += speed; 
+    /**
+     * Bounds Check 
+     * 
+     * If particle hit the boundary, it should bounce back: 
+     *      - pos no change 
+     *      - speed = mirror speed to the bounding border 
+     *      - acceleration = resistence force in speed's opposite direction, iff mouse is not down
+     *                          if mouse is down, we don't care then. 
+     */
+
+    float tmp = ((float)BOX_EDGE_LEN) / 2;
+    vec4 boxBounds = vec4(vec2(-tmp, tmp),  // up-left corner
+                          vec2(tmp, -tmp)); // bottom-right corner
+    cout << "bounds check: " << to_string(boxBounds) << endl;
+
+    vec2 potentialPos = pos + speed; 
+    bool hitBounds = false; 
+    if (potentialPos.x < boxBounds.x || potentialPos.x > boxBounds.z) // hits left or right boundaries
+    {
+        speed.x = -speed.x; 
+        hitBounds = true; 
+    }
+    if (potentialPos.y < boxBounds.w || potentialPos.y > boxBounds.y) // hits top or bottom boundaries
+    {
+        speed.y = -speed.y;
+        hitBounds = true;
+    }
+    
+    // pos
+    if (!hitBounds)
+        pos += speed;
+
+    if (!mouse.isMouseDown() && length(speed))
+        acceleration = normalize(-speed) * PARTICLE_MOVING_RESISTENCE;
 }
 
 string Particle::toString()
