@@ -1,33 +1,13 @@
 # Final Project - Computer Graphics
 
-TODO: 
-- [x] init buffers and local cache
-- [x] Program::eventhandler -> detect mouse drag
-- [x] Mouse.cpp 
-    - [x] handleMouseDown()
-    - [x] getMousePos()
-- [x] setup shaders
-- [x] particle auto-update with mouse info
-- [x] render
-- [x] update 
-
-DEBUG 
-- [x] testing particles data are auto-updated for each frame on CPU side 
-- [x] pass camera matrix as uniform 
-- [x] test data is actually passed to GPU
-- [x] test gl draw procedure is correct. 
-- [x] fix click is off when cam is not centered
-- [x] color 
-- [x] slow down resistance
-- [x] why it went crazy on long click? 
-
-
-## Edit this line: Put your link to your youtube video here (see deliverables).
+## [Particles Simulation - 2 million particles with TransformFeedback buffers](https://youtu.be/5rX8UyI1D3s)
 
 * Name and partners name(At most teams of 3 folks total)
   * Team member 1: *Lu Ji*
   * Team member 2: *Tianwei Li*
   * Team member 3: *Rui Zheng*
+* Report Video: 
+    * [Particles Simulation - 2 million particles with TransformFeedback buffers](https://youtu.be/5rX8UyI1D3s)
 * How many hours did it take you to complete this final project? 
     * 20
 * Did you collaborate or share ideas with any other students/TAs/Professors?
