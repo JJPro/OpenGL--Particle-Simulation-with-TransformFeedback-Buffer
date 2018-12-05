@@ -30,7 +30,9 @@ public:
   void setUniform(const GLchar *name, float, float, float);
   void setUniform(const GLchar *name, int);
   void setUniform(const GLchar *name, float);
+  void setUniform(const GLchar *name, const glm::vec2 &);
   void setUniform(const GLchar *name, const glm::vec3 &);
+  void setUniform(const GLchar *name, const glm::vec4 &);
 
 };
 

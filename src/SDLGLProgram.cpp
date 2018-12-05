@@ -25,6 +25,13 @@ SDLGLProgram::SDLGLProgram(int w, int h) : screenWidth(w), screenHeight(h)
         glEnable(GL_POINT_SMOOTH);
         glEnable(GL_PROGRAM_POINT_SIZE);
         shader->setUniform("PARTICLE_SPEED_MAX", PARTICLE_SPEED_MAX);
+        shader->setUniform("GRAVITATIONAL_CONSTANT", GRAVITATIONAL_CONSTANT);
+        shader->setUniform("PARTICLE_ACCELERATION_MAX", PARTICLE_ACCELERATION_MAX);
+        shader->setUniform("PARTICLE_MOVING_RESISTENCE", PARTICLE_MOVING_RESISTENCE);
+        float tmp = ((float)BOX_EDGE_LEN) / 2;
+        vec4 boxBounds = vec4(vec2(-tmp, tmp),  // up-left corner
+                              vec2(tmp, -tmp)); // bottom-right corner
+        shader->setUniform("boxBounds", boxBounds);
 
         // buffer initial data to GPU
         initBufferData();
@@ -56,28 +63,52 @@ void SDLGLProgram::initBufferData()
 // update state for every render
 void SDLGLProgram::update()
 {
-    for (auto p = particles.begin(); p != particles.end(); p++) {
-        p->update(*mouse, camera.getViewMatrix());
-    }
-
     shader->use(); 
     shader->setUniform("camMatrix", camera.getViewMatrix()); 
+    shader->setUniform("Mouse.isMouseDown", mouse->isMouseDown());
+    shader->setUniform("Mouse.mousePos", mouse->getMousePosInLocalCoord(camera.getViewMatrix()));
 }
 
 // sets what to render
 void SDLGLProgram::render()
 {
-    // printParticles(); 
-    _bufferParticles(); 
     /***** cleaning work *****/
     glViewport(0, 0, screenWidth, screenHeight);
-    glClearColor(.5, .1, .5, 1);  
+    glClearColor(.5, .5, .5, 1);  
     glClear(GL_COLOR_BUFFER_BIT); 
 
     /****** draw objects ******/
     shader->use(); 
-    glBindVertexArray(VAO); 
-    glDrawArrays(GL_POINTS, 0, particles.size()); 
+    static bool first_render = true; 
+
+    if (first_render) {
+        renderBufferIndex = 0; 
+        feedbackBufferIndex = 1;
+        first_render = false; 
+    } else {
+        renderBufferIndex = feedbackBufferIndex; 
+        feedbackBufferIndex = 1 - renderBufferIndex; 
+    }
+
+
+    // first draw, capture the vertices 
+    glEnable(GL_RASTERIZER_DISCARD);
+    
+        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBO[feedbackBufferIndex]);
+        glBindVertexArray(VAO[renderBufferIndex]); 
+
+        glBeginTransformFeedback(GL_POINTS); 
+            glDrawArrays(GL_POINTS, 0, PARTICLE_COUNT); 
+        glEndTransformFeedback(); 
+
+    glDisable(GL_RASTERIZER_DISCARD);
+
+
+    // second draw, reuse the captured vertices
+    glBindVertexArray(VAO[renderBufferIndex]); 
+    glDrawArrays(GL_POINTS, 0, PARTICLE_COUNT); 
+    
+
 }
 
 void SDLGLProgram::loop()
@@ -268,8 +299,11 @@ bool SDLGLProgram::initSDL()
 
 void SDLGLProgram::_bufferParticles()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
     glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(Particle), particles.data(), GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]); 
+    glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(Particle), NULL, GL_DYNAMIC_DRAW);
+
     /**
      * Configure Buffer Layout
      * 
@@ -281,18 +315,22 @@ void SDLGLProgram::_bufferParticles()
     static bool layout_set = false;
     if (layout_set)
         return;
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // vec2 acceleration
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), 0);
-    glEnableVertexAttribArray(0);
-    // vec2 speed
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void *)(2 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    // vec2 pos
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void *)(4 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-    glBindVertexArray(0);
+    
+    for (int i=0; i<2; i++){
+
+        glBindVertexArray(VAO[i]);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO[i]);
+        // vec2 acceleration
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), 0);
+        glEnableVertexAttribArray(0);
+        // vec2 speed
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void *)(2 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+        // vec2 pos
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Particle), (void *)(4 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+        glBindVertexArray(0);
+    }
 
     layout_set = true;
 }
@@ -307,15 +345,15 @@ void SDLGLProgram::_genBuffers()
     static bool generated = false;
     if (generated)
         return;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    glGenVertexArrays(2, VAO);
+    glGenBuffers(2, VBO);
 
     generated = true;
 }
 void SDLGLProgram::_delBuffers()
 {
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(2, VAO);
+    glDeleteBuffers(2, VBO);
 }
 
 // Helper Function to get OpenGL Version Information

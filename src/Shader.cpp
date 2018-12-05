@@ -35,6 +35,15 @@ Shader::Shader(std::string vShaderPath, std::string fShaderPath)
     ID = glCreateProgram();
     glAttachShader(ID, vertexShader);
     glAttachShader(ID, fragmentShader);
+
+    /**
+     * Transform Feedback
+     * 
+     * Set up what variables we want to catch BEFORE LINKING
+     */
+    const GLchar *feedbackVars[] = {"outAcceleration", "outSpeed", "outPos"};
+    glTransformFeedbackVaryings(ID, 3, feedbackVars, GL_INTERLEAVED_ATTRIBS); 
+
     // link shaders in the program
     glLinkProgram(ID);
     glValidateProgram(ID);
@@ -135,7 +144,15 @@ void Shader::setUniform(const GLchar *name, float value)
 {
   glUniform1f(glGetUniformLocation(ID, name), value);
 }
+void Shader::setUniform(const GLchar *name, const glm::vec2 &vector)
+{
+  glUniform2fv(glGetUniformLocation(ID, name), 1, &vector[0]); 
+}
 void Shader::setUniform(const GLchar *name, const glm::vec3 &vector)
 {
   glUniform3fv(glGetUniformLocation(ID, name), 1, &vector[0]); 
+}
+void Shader::setUniform(const GLchar *name, const glm::vec4 &vector)
+{
+  glUniform4fv(glGetUniformLocation(ID, name), 1, &vector[0]); 
 }

@@ -26,7 +26,10 @@ public:
 
 private:
   vector<Particle> particles;
-  GLuint VAO, VBO; 
+  GLuint VAO[2]; 
+  GLuint VBO[2]; // one for drawing, one for transform feedback
+  int renderBufferIndex; 
+  int feedbackBufferIndex;
   Camera camera;
   Mouse *mouse; 
   Shader *shader; 
