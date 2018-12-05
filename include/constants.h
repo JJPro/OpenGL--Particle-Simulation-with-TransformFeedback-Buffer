@@ -5,8 +5,8 @@
  * This file holds all the global constants used in our program
  */ 
 
-#define REFRESH_DELAY 25
-#define PARTICLE_COUNT 160000
+#define REFRESH_DELAY 20
+#define PARTICLE_COUNT 100000
 #define PARTICLE_MOVING_RESISTENCE 0.004f
 #define PARTICLE_ACCELERATION_MAX 0.04f
 #define PARTICLE_SPEED_MAX 0.2f
