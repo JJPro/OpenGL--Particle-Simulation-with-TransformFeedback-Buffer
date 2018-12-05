@@ -1,13 +1,13 @@
 # Final Project - Computer Graphics
 
-## [Particles Simulation - 2 million particles with TransformFeedback buffers](https://youtu.be/5rX8UyI1D3s)
+## [Particles Simulation - 2 million particles with TransformFeedback buffers](https://youtu.be/nFGZ6Hcqzc8)
 
 * Name and partners name(At most teams of 3 folks total)
   * Team member 1: *Lu Ji*
   * Team member 2: *Tianwei Li*
   * Team member 3: *Rui Zheng*
 * Report Video: 
-    * [Particles Simulation - 2 million particles with TransformFeedback buffers](https://youtu.be/5rX8UyI1D3s)
+    * [Particles Simulation - 2 million particles with TransformFeedback buffers](https://youtu.be/nFGZ6Hcqzc8)
 * How many hours did it take you to complete this final project? 
     * 20
 * Did you collaborate or share ideas with any other students/TAs/Professors?
